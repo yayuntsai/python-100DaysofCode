@@ -1,5 +1,4 @@
 import random
-import my_module
 
 rock = '''
     _______
@@ -40,19 +39,10 @@ elif(choose == com_rand):
 else:
   print("You loose")
 
+game_images = [rock, paper, scissors]
 print("You:")
-if(choose==0):
-  print(rock)
-elif(choose==1):
-  print(paper)
-else:
-  print(scissors)
+print(game_images[choose])
 
 print("Computer:")
-if(com_rand==0):
-  print(rock)
-elif(com_rand==1):
-  print(paper)
-else:
-  print(scissors)
+print(game_images[com_rand])
 
