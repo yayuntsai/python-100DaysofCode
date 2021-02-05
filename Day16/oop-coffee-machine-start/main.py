@@ -23,4 +23,8 @@ while is_on:
     coffee_report = coffee_maker.report()
     money_report = money_machine.report()
   else:
-    print(menu.find_drink(choice))
+    drink = menu.find_drink(choice)
+    is_enough_ingredient = coffee_maker.is_resource_sufficient(drink)
+    is_success_payment = money_machine.make_payment(drink.cost)
+    if is_enough_ingredient and is_success_payment:
+        coffee_maker.make_coffee(drink)
