@@ -13,6 +13,9 @@ LONG_BREAK_MIN = 20
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 
+def reset_timer():
+    canvas.itemconfig(timer_text, text="5:00")
+
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     count_down(5*60)
@@ -23,6 +26,10 @@ def count_down(count):
     #time format
     minute_text = math.floor(count/60)
     sec_text = count%60
+
+
+    if sec_text<10:
+        sec_text = f"0{sec_text}"
 
 
     canvas.itemconfig(timer_text, text=f"{minute_text}:{sec_text}")
