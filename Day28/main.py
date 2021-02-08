@@ -7,7 +7,7 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
+WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
@@ -29,12 +29,15 @@ def start_timer():
     # rep = 8th
     if reps % 8 == 0:
         count_down(long_break_sec)
+        canvas.itemconfig(timer_label, text="Long break")
     # rep = 2nd/4th/6th
     elif reps % 2 == 0:
         count_down(short_break_sec)
+        timer_label.config(text="Short Break", fg="red")
     # rep = 1st/3rd/5th/7th
     else:
         count_down(work_sec)
+        timer_label.config(text="Working", fg="red")
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def count_down(count):
