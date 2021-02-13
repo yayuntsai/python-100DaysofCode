@@ -12,4 +12,6 @@ import pandas
 data = pandas.read_csv("weather_data.csv")
 temp_list = data['temp']
 avg_temp_list = sum(temp_list) / len(temp_list)
+pan_avg_temp_list = temp_list.mean()
 print("average temperature:", avg_temp_list)
+print("average temperature (using pandas):", pan_avg_temp_list)
