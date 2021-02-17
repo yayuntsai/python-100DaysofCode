@@ -21,7 +21,8 @@ all_states = state_data.state.to_list()
 
 
 while count_correct <= 50:
-    answer_state = screen.textinput(title=f"{count_correct}/50 State Name", prompt="What's another state name?")
+    answer_state_ori = screen.textinput(title=f"{count_correct}/50 State Name", prompt="What's another state name?")
+    answer_state = answer_state_ori.title()
 
     if answer_state in all_states:
         index_of_answer = all_states.index(answer_state)
