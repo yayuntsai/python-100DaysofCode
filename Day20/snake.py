@@ -2,7 +2,7 @@ from turtle import Turtle
 
 STARTING_POSITION = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
-MOVE_DEGREE = 90
+MOVE_DEGREE = 0
 
 class Snake:
     def __init__(self):
@@ -23,5 +23,17 @@ class Snake:
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].forward(MOVE_DISTANCE)
-        self.segments[0].left(MOVE_DEGREE)
+            self.segments[0].forward(MOVE_DISTANCE)
+
+
+    def up(self):
+        self.segments[0].setheading(90)
+
+    def down(self):
+        pass
+
+    def left(self):
+        pass
+
+    def right(self):
+        pass
