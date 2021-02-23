@@ -28,16 +28,20 @@ class Snake:
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-        self.head.forward(MOVE_DISTANCE) # 一起移動的距離
+        self.head.forward(MOVE_DISTANCE)  # 一起移動的距離
 
     def right(self):
-        self.head.setheading(RIGHT)
+        if self.head.heading() != LEFT:  # 設定不可直接反方向運行
+            self.head.setheading(RIGHT)
 
     def up(self):
-        self.head.setheading(UP)
+        if self.head.heading() != DOWN:  # 設定不可直接反方向運行
+            self.head.setheading(UP)
 
     def left(self):
-        self.head.setheading(LEFT)
+        if self.head.heading() != RIGHT:  # 設定不可直接反方向運行
+            self.head.setheading(LEFT)
 
     def down(self):
-        self.head.setheading(DOWN)
+        if self.head.heading() != UP:  # 設定不可直接反方向運行
+            self.head.setheading(DOWN)
