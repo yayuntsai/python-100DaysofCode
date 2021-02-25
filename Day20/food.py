@@ -14,3 +14,9 @@ class Food(Turtle):
         rand_y = random.randint(-280, 280)  # 不讓食物落在y邊界上
         self.goto(rand_x, rand_y)
 
+
+    def refresh(self):
+        rand_x = random.randint(-280, 280)  # 不讓食物落在x邊界上
+        rand_y = random.randint(-280, 280)  # 不讓食物落在y邊界上
+        self.goto(rand_x, rand_y)
+
