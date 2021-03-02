@@ -7,11 +7,13 @@ class Scoreboard(Turtle):
         self.color('white')
         self.penup()
         self.goto(0, 250) # 設定scoreboard位置
-        # self.write(f"Score:{self.score}", align="center", font=("Arial", 24, "normal"))
-
         self.hideturtle() # 隱藏烏龜
+        self.update_scoreboard()
+
+    def update_scoreboard(self):
+        self.clear()
+        self.write(f"Score:{self.score}", align="center", font=("Arial", 24, "normal"))
 
     def increase_score(self):
         self.score += 1
-        self.clear()
-        self.write(f"Score:{self.score}", align="center", font=("Arial", 24, "normal"))
+        self.update_scoreboard()
