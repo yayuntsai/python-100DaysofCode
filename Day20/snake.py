@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-STARTING_POSITION = [(0, 0), (-20, 0), (-40, 0)]
+STARTING_POSITION = [(0, 0), (-20, 0), (-40, 0), (-60, 0), (-80, 0), (-100, 0), (-120, 0), (-140, 0), (-160, 0)]
 MOVE_DISTANCE = 20
 MOVE_DEGREE = 0
 UP = 90
@@ -20,6 +20,7 @@ class Snake:
             new_segment = Turtle('square')
             new_segment.color('white')
             new_segment.penup()  # remove white line of trajectory
+
             new_segment.goto(position)
             self.segments.append(new_segment)
 
