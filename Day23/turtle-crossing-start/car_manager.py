@@ -11,12 +11,20 @@ class CarManager(Turtle):
         super().__init__()
         self.all_cars = []
         self.create_brick()
+        self.hideturtle()
 
     def create_brick(self):
-        new_car = Turtle('square')
-        new_car.penup()  # 不會畫軌跡
-        new_car.shapesize(stretch_wid=1, stretch_len=2)
-        new_car.color(random.choice(COLORS))
-        rand_y = random.randint(-250, 250)  # 不讓食物落在y邊界上
-        new_car.goto(300, rand_y)
-        self.all_cars.append(new_car)
+        # 設定方塊密度（random 1/6 會產生方塊的機率）
+        rand_chance = random.randint(1, 6)
+        if rand_chance == 1:
+            new_car = Turtle('square')
+            new_car.penup()  # 不會畫軌跡
+            new_car.shapesize(stretch_wid=1, stretch_len=2)
+            new_car.color(random.choice(COLORS))
+            rand_y = random.randint(-250, 250)
+            new_car.goto(300, rand_y)
+            self.all_cars.append(new_car)
+
+    def move_cars(self):
+        for car in self.all_cars:
+            car.backward(MOVE_INCREMENT)

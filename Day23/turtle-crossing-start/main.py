@@ -10,6 +10,7 @@ screen.tracer(0)
 
 player = Player()
 car_manager = CarManager()
+scoreboard = Scoreboard()
 
 screen.listen()
 screen.onkey(player.go_up, "Up")
@@ -20,6 +21,17 @@ while game_is_on:
     screen.update()
 
     car_manager.create_brick()
+    car_manager.move_cars()
+
+    # Detect car collision
+    for car in car_manager.all_cars:
+        if player.distance(car) < 10:
+            game_is_on = False
+            scoreboard.lose_game()
+
+        elif player.ycor() > 280:
+            game_is_on = False
+            scoreboard.win_game()
 
 
 screen.exitonclick()
