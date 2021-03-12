@@ -7,6 +7,7 @@ class QuizeIntetface:
     def __init__(self, quiz_brain: QuizBrain):
         self.window = Tk()
         self.quiz = quiz_brain
+
         self.window.title('Quiz App')
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
         self.score_label = Label(text="Score:0", fg="white", bg=THEME_COLOR)
@@ -27,11 +28,13 @@ class QuizeIntetface:
         true_button = Button(image=true_icon,
                              highlightthickness=0,
                              width=30,
-                             height=30)
+                             height=30,
+                             command=self.true_pressed)
         false_button = Button(image=false_icon,
                               highlightthickness=0,
                               width=30,
-                              height=30)
+                              height=30,
+                              command=self.false_pressed)
         true_button.grid(row=5, column=0)
         false_button.grid(row=5, column=1)
 
@@ -43,4 +46,8 @@ class QuizeIntetface:
         q_text = self.quiz.next_question()
         self.canvas.itemconfig(self.question_text, text=q_text)
 
+    def true_pressed(self):
+        self.quiz.check_answer("True")
 
+    def false_pressed(self):
+        self.quiz.check_answer("False")
