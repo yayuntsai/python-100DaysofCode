@@ -25,20 +25,20 @@ class QuizeIntetface:
             font=("Arial", 20, "normal"))
         self.canvas.grid(row=1, column=0, columnspan=2, pady=50)
 
-        true_icon = PhotoImage(file="images/true.png")
-        false_icon = PhotoImage(file="images/false.png")
-        true_button = Button(image=true_icon,
+        self.true_icon = PhotoImage(file="images/true.png")
+        self.false_icon = PhotoImage(file="images/false.png")
+        self.true_button = Button(image=self.true_icon,
                              highlightthickness=0,
                              width=30,
                              height=30,
                              command=self.true_pressed)
-        false_button = Button(image=false_icon,
+        self.false_button = Button(image=self.false_icon,
                               highlightthickness=0,
                               width=30,
                               height=30,
                               command=self.false_pressed)
-        true_button.grid(row=5, column=0)
-        false_button.grid(row=5, column=1)
+        self.true_button.grid(row=5, column=0)
+        self.false_button.grid(row=5, column=1)
 
         self.get_next_question()
         self.window.mainloop()
@@ -51,6 +51,8 @@ class QuizeIntetface:
             self.canvas.itemconfig(self.question_text, text=q_text)
         else:
             self.canvas.itemconfig(self.question_text, text="You reach the end of the quiz")
+            self.true_button.config(state="disabled")
+            self.false_button.config(state="disabled")
 
     def true_pressed(self):
         self.get_feedback(self.quiz.check_answer("True"))
