@@ -46,8 +46,11 @@ class QuizeIntetface:
 
     def get_next_question(self):
         self.canvas.config(bg="white")
-        q_text = self.quiz.next_question()
-        self.canvas.itemconfig(self.question_text, text=q_text)
+        if self.quiz.still_has_questions():
+            q_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.canvas.itemconfig(self.question_text, text="You reach the end of the quiz")
 
     def true_pressed(self):
         self.get_feedback(self.quiz.check_answer("True"))
