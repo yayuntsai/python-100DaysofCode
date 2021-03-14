@@ -2,11 +2,13 @@ from tkinter import *
 from quiz_brain import QuizBrain
 THEME_COLOR = "#7D96DF"
 
+
 class QuizeIntetface:
 
     def __init__(self, quiz_brain: QuizBrain):
         self.window = Tk()
         self.quiz = quiz_brain
+        self.count_correct = 0
 
         self.window.title('Quiz App')
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
@@ -57,6 +59,8 @@ class QuizeIntetface:
         is_correct = is_right
         if is_correct:
             self.canvas.config(bg="green")
+            self.count_correct += 1
+            self.score_label.config(text=f"Score:{self.count_correct}")
         else:
             self.canvas.config(bg="red")
 
