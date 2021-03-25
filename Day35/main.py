@@ -13,5 +13,9 @@ weather_params = {
 response = requests.get(OWM_endpoint, params=weather_params)
 response.raise_for_status()
 weather_data = response.json()
-hourly_data = weather_data['hourly']
-print(hourly_data[13])
+hourly_data_list = weather_data['hourly'][:12]
+#weather_id = hourly_data_list[0]['weather'][0]['id'] # figure the weather id in the JSON
+for weather_data in hourly_data_list:
+    condition_code = weather_data['weather'][0]['id']
+    if condition_code < 700:
+        print("Bring Umbrella")
