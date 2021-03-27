@@ -31,18 +31,30 @@ for record in every_record_list:
     close_data = record["4. close"]
     close_data_list.append(close_data)
 
-n = 0
+n = 1
 for record in close_data_list:
-    vary_rate = (float(close_data_list[n])-float(close_data_list[n+1])) / float(close_data_list[n+1])
-    print(vary_rate)
-    if vary_rate > 0.05 or vary_rate < -0.05:
-        print("Get News")
-    n += 1
+    if n < len(close_data_list):
+        vary_rate = (float(close_data_list[n-1])-float(close_data_list[n])) / float(close_data_list[n])
+        # print(vary_rate)
+        if vary_rate > 0.05 or vary_rate < -0.05:
+            print("Get News")
+        n += 1
 
 ## STEP 2: Use https://newsapi.org/docs/endpoints/everything
 # Instead of printing ("Get News"), actually fetch the first 3 articles for the COMPANY_NAME. 
 #HINT 1: Think about using the Python Slice Operator
-
+news_api_key = "ae90fb4499b04843ac044632a768b595"
+news_params = {
+    "q": COMPANY_NAME,
+    "from": "2021-03-26",
+    "to": "2021-03-26",
+    "sortBy": "popularity",
+    "apiKey": news_api_key
+}
+response = requests.get(NEWS_ENDPOINT, params=news_params)
+response.raise_for_status()
+articles = response.json()['articles']
+three_articles = articles[:3]
 
 
 ## STEP 3: Use twilio.com/docs/sms/quickstart/python
