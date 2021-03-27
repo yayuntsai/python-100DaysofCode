@@ -24,13 +24,20 @@ stock_data = response.json()
 every_record = stock_data["Time Series (Daily)"]
 #Put everyday data in a list
 every_record_list = [value for (key, value) in every_record.items()]
-print(every_record_list)
-
-# for record in every_record:
-#     json_object = json.loads(record)
-#     print(json_object['4. close'])
 
 
+close_data_list = []
+for record in every_record_list:
+    close_data = record["4. close"]
+    close_data_list.append(close_data)
+
+n = 0
+for record in close_data_list:
+    vary_rate = (float(close_data_list[n])-float(close_data_list[n+1])) / float(close_data_list[n+1])
+    print(vary_rate)
+    if vary_rate > 0.05 or vary_rate < -0.05:
+        print("Get News")
+    n += 1
 
 ## STEP 2: Use https://newsapi.org/docs/endpoints/everything
 # Instead of printing ("Get News"), actually fetch the first 3 articles for the COMPANY_NAME. 
