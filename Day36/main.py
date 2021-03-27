@@ -1,4 +1,5 @@
 import requests
+import json
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -19,9 +20,15 @@ stock_params = {
 }
 response = requests.get(STOCK_ENDPOINT, params=stock_params)
 response.raise_for_status()
-data = response.json()
+stock_data = response.json()
+every_record = stock_data["Time Series (Daily)"]
+#Put everyday data in a list
+every_record_list = [value for (key, value) in every_record.items()]
+print(every_record_list)
 
-print(data)
+# for record in every_record:
+#     json_object = json.loads(record)
+#     print(json_object['4. close'])
 
 
 
