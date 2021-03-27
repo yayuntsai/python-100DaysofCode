@@ -1,11 +1,15 @@
 import requests
 import json
+from twilio.rest import Client
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+OWM_endpoint = "https://api.openweathermap.org/data/2.5/onecall"
+account_sid = "AC395eba2befd04b8488ebaec1950fd970"
+auth_token = "c9534fb451ce30aca775b6290f797490"
 API_KEY = "NNX2PXUTI0HTXYNP"
 
 ## STEP 1: Use https://newsapi.org/docs/endpoints/everything
@@ -37,29 +41,37 @@ for record in close_data_list:
         vary_rate = (float(close_data_list[n-1])-float(close_data_list[n])) / float(close_data_list[n])
         # print(vary_rate)
         if vary_rate > 0.05 or vary_rate < -0.05:
-            print("Get News")
+            ## STEP 2: Use https://newsapi.org/docs/endpoints/everything
+            # Instead of printing ("Get News"), actually fetch the first 3 articles for the COMPANY_NAME.
+            # HINT 1: Think about using the Python Slice Operator
+            news_api_key = "ae90fb4499b04843ac044632a768b595"
+            news_params = {
+                "q": COMPANY_NAME,
+                "from": "2021-03-26",
+                "to": "2021-03-26",
+                "sortBy": "popularity",
+                "apiKey": news_api_key
+            }
+            response = requests.get(NEWS_ENDPOINT, params=news_params)
+            response.raise_for_status()
+            articles = response.json()['articles']
+            three_articles = articles[:3]
+
+            ## STEP 3: Use twilio.com/docs/sms/quickstart/python
+            # Send a separate message with each article's title and description to your phone number.
+            # HINT 1: Consider using a List Comprehension.
+            formatted_articles = [f"Title: {article['title']}. \nDescription: {article['description']}" for article in three_articles]
+            client = Client(account_sid, auth_token)
+
+            for article in formatted_articles:
+                message = client.messages \
+                    .create(
+                    body = article,
+                    from_ = '+16092706262',
+                    to='+886937485999'
+                )
+            print(message.status)
         n += 1
-
-## STEP 2: Use https://newsapi.org/docs/endpoints/everything
-# Instead of printing ("Get News"), actually fetch the first 3 articles for the COMPANY_NAME. 
-#HINT 1: Think about using the Python Slice Operator
-news_api_key = "ae90fb4499b04843ac044632a768b595"
-news_params = {
-    "q": COMPANY_NAME,
-    "from": "2021-03-26",
-    "to": "2021-03-26",
-    "sortBy": "popularity",
-    "apiKey": news_api_key
-}
-response = requests.get(NEWS_ENDPOINT, params=news_params)
-response.raise_for_status()
-articles = response.json()['articles']
-three_articles = articles[:3]
-
-
-## STEP 3: Use twilio.com/docs/sms/quickstart/python
-# Send a separate message with each article's title and description to your phone number. 
-#HINT 1: Consider using a List Comprehension.
 
 
 
