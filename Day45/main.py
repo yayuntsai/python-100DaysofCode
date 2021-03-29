@@ -24,7 +24,8 @@ print(article_link, article_texts)
 
 article_upvote = [int(score.getText().split()[0]) for score in soup.find_all("span", "score")]
 index_of_mas = article_upvote.index(max(article_upvote))
-print(article_texts[18])
+most_popular = article_texts[index_of_mas]
+print(most_popular)
 #
 #
 # # 一些屬性或方法
