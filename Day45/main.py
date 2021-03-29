@@ -22,8 +22,9 @@ for article_tag in articles:
     article_texts.append(texts)
 print(article_link, article_texts)
 
-article_upvote = soup.find("span", "score").get_text()
-# print(article_upvote)
+article_upvote = [int(score.getText().split()[0]) for score in soup.find_all("span", "score")]
+index_of_mas = article_upvote.index(max(article_upvote))
+print(article_texts[18])
 #
 #
 # # 一些屬性或方法
