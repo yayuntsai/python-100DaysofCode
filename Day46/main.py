@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy.util as util
+from spotipy.oauth2 import SpotifyOAuth
 
 # with open("website.html") as file:
 #     contents = file.read()
@@ -31,10 +32,25 @@ print(article_texts)
 
 
 # Call Spotify API
+spotify_params = {
+    "client_id": CLIENT_ID,
+    "client_secret": CLIENT_SECRET,
+    "redirect_uri": "http://example.com",
+    "scope": "user-library-read"
+}
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,
-                                                           client_secret=CLIENT_SECRET))
+auth_manager = SpotifyOAuth(client_id="d904616d0451406b9267cc19c9c7747b",
+    client_secret="9e115fb01a554a87bf7162be3d859b6d",
+    redirect_uri="http://example.com",
+    scope="playlist-modify-private",
+    cache_path="token.txt",
+    username="anniesnoopymd@yahoo.com.tw")
+sp = spotipy.Spotify(auth_manager=auth_manager)
+# sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+#
+# ))
 
-results = sp.search(q='weezer', limit=20)
-for idx, track in enumerate(results['tracks']['items']):
-    print(idx, track['name'])
+results = sp.current_user_saved_tracks()
+for idx, item in enumerate(results['items']):
+    track = item['track']
+    print(idx, track['artists'][0]['name'], " – ", track['name'])
