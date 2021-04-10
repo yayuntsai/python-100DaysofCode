@@ -12,5 +12,10 @@ html_doc = response.text
 
 
 soup = BeautifulSoup(html_doc, "lxml")
-price = soup.find("span", "a-size-medium a-color-price").get_text()
-print(price)
+prices = soup.find_all("span", "a-size-medium a-color-price")
+
+price_list = []
+for price in prices:
+    text = price.get_text().split("US$")
+    price_list.append(text)
+print(price_list)
